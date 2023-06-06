@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="movie"
+            type="com.diplomaproject.movies.model.Movie" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+
+        android:layout_width="190dp"
+        android:layout_height="300dp"
+        android:layout_margin="5dp"
+        app:cardCornerRadius="8dp"
+        app:cardUseCompatPadding="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageView
+                app:imageUrl="@{movie.poster_path}"
+                android:layout_width="match_parent"
+                android:layout_height="220dp"
+                android:adjustViewBounds="true"
+                android:cropToPadding="true"
+                android:scaleType="fitXY" />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="@{movie.title}"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+<!--            <TextView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:padding="10dp"-->
+<!--                android:paddingStart="10dp"-->
+<!--                android:paddingTop="15dp"-->
+<!--                android:paddingEnd="15dp"-->
+<!--                android:text="@{movie.overview}"-->
+<!--                android:textSize="18sp"-->
+<!--                android:textStyle="normal" />-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/journal_timestamp_list"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:padding="5dp"-->
+<!--                android:text="@{movie.release_date}"-->
+<!--                android:textStyle="italic" />-->
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+</layout>
