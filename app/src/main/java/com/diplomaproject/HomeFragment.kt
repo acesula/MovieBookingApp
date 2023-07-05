@@ -33,22 +33,6 @@ class HomeFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setHasOptionsMenu(true)
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.menu, menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-//            R.id.action_logout -> {
-//                auth.signOut()
-//                goToLoginPage()
-//                true
-//            }
-            else -> super.onOptionsItemSelected(item)
-        }
     }
 
     override fun onCreateView(
@@ -56,23 +40,31 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
+        moviesOnTheatre()
+        return binding.root
+    }
+
+    private fun moviesOnTheatre() {
         binding.recyclerView.setHasFixedSize(true)
-        binding.recyclerView.layoutManager = LinearLayoutManager(binding.root.context,LinearLayoutManager.HORIZONTAL,false)
+        binding.recyclerView.layoutManager =
+            LinearLayoutManager(binding.root.context, LinearLayoutManager.HORIZONTAL, false)
         databaseReference = FirebaseDatabase.getInstance().getReference("movies")
         movieList = arrayListOf<Movie>()
 
         databaseReference.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 for (postSnapshot in snapshot.children) {
-                    movieList.add(Movie(
-                        postSnapshot.child("backdrop_path").value.toString(),
-                        postSnapshot.child("original_language").value.toString(),
-                        postSnapshot.child("overview").value.toString(),
-                        postSnapshot.child("poster_path").value.toString(),
-                        postSnapshot.child("release_date").value.toString(),
-                        postSnapshot.child("title").value.toString(),
-                        postSnapshot.child("vote_average").value.toString()
-                    ))
+                    movieList.add(
+                        Movie(
+                            postSnapshot.child("backdrop_path").value.toString(),
+                            postSnapshot.child("original_language").value.toString(),
+                            postSnapshot.child("overview").value.toString(),
+                            postSnapshot.child("poster_path").value.toString(),
+                            postSnapshot.child("release_date").value.toString(),
+                            postSnapshot.child("title").value.toString(),
+                            postSnapshot.child("vote_average").value.toString()
+                        )
+                    )
                 }
                 adapter = MyAdapter(binding.root.context, movieList)
                 binding.recyclerView.adapter = adapter
@@ -85,8 +77,6 @@ class HomeFragment : Fragment() {
             }
 
         })
-
-        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -106,8 +96,6 @@ class HomeFragment : Fragment() {
         startActivity(intent)
         requireActivity().finish()
     }
-
-
 
 
 }

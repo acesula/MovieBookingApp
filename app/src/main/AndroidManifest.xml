@@ -19,7 +19,7 @@
             android:exported="false" />
         <activity
             android:name=".authentication.Register"
-            android:exported="false"></activity>
+            android:exported="false" />
         <activity
             android:name=".authentication.Login"
             android:exported="true">
@@ -31,7 +31,7 @@
         </activity>
         <activity
             android:name=".MainActivity"
-            android:exported="true"></activity>
+            android:exported="true"/>
     </application>
 
 </manifest>

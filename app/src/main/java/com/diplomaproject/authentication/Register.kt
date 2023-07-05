@@ -1,9 +1,12 @@
 package com.diplomaproject.authentication
 
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Base64
 import android.view.View
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
@@ -13,12 +16,13 @@ import com.diplomaproject.authentication.data.User
 import com.diplomaproject.databinding.ActivityRegisterBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ktx.database
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import java.io.ByteArrayOutputStream
+import java.io.File
+import java.io.FileInputStream
+
 
 class Register : AppCompatActivity() {
     lateinit var binding: ActivityRegisterBinding
@@ -114,7 +118,14 @@ class Register : AppCompatActivity() {
     }
 
     private fun saveToDb(name: String, surname: String, email: String, user: FirebaseUser?) {
-        val user1: User = User(name, surname, email, user?.uid.toString())
+        val imageFile = File("drawable\\profile_picture.png")
+        val fileInputStream = FileInputStream(imageFile)
+        val imageBytes = ByteArray(imageFile.length().toInt())
+        fileInputStream.read(imageBytes)
+
+// Convert the image bytes to a base64-encoded string
+        val image = Base64.encodeToString(imageBytes, Base64.DEFAULT)
+        val user1: User = User(name, surname, email, user?.uid.toString(),image)
         database = Firebase.firestore
         database.collection("Users").add(user1)
     }

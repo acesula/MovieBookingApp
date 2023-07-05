@@ -9,7 +9,7 @@
         android:title="Home"
         app:showAsAction="always"/>
     <item
-        android:id="@+id/message"
+        android:id="@+id/order"
         android:icon="@drawable/baseline_shopping_cart_24"
         android:title="Order"
         app:showAsAction="always"/>
