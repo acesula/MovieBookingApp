@@ -5,11 +5,11 @@ import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 
 data class User(
-    val name: String?,
-    val surname: String?,
-    val email: String?,
-    val uId: String?,
-    val profile_picture: String?
+    val name: String? = null,
+    val surname: String? = null,
+    val email: String? = null,
+    val uId: String? = null,
+    val profile_picture: String? = null
 
 ) {
 

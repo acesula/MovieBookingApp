@@ -7,7 +7,7 @@
 
         <variable
             name="movie"
-            type="com.diplomaproject.movies.model.Movie" />
+            type="com.diplomaproject.movies.model.UpcomingMovie" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -160,15 +160,15 @@
                     android:text="@{movie.overview}"
                     android:textSize="12sp"/>
 
-                <Button
-                    android:id="@+id/bookTicket"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Book a ticket"
-                    android:background="@drawable/top_button_background"
-                    android:textSize="14sp"
-                    android:layout_marginTop="50dp"
-                    android:layout_marginLeft="15dp"/>
+<!--                <Button-->
+<!--                    android:id="@+id/bookTicket"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="Book a ticket"-->
+<!--                    android:background="@drawable/top_button_background"-->
+<!--                    android:textSize="14sp"-->
+<!--                    android:layout_marginTop="50dp"-->
+<!--                    android:layout_marginLeft="15dp"/>-->
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

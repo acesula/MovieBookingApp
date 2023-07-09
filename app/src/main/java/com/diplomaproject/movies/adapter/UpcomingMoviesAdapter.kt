@@ -5,30 +5,28 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.FragmentManager
-import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import com.diplomaproject.MovieDetailsFragment
-import com.diplomaproject.MovieList
 import com.diplomaproject.R
 import com.diplomaproject.databinding.ItemBinding
+import com.diplomaproject.databinding.ItemUpcomingBinding
 import com.diplomaproject.movies.model.Movie
+import com.diplomaproject.movies.model.UpcomingMovie
 
-class MyAdapter(val context: Context, private val movieList: List<Movie>) :
-    RecyclerView.Adapter<MyAdapter.MyViewHolder>() {
+class UpcomingMoviesAdapter(val context: Context, private val movieList: List<UpcomingMovie>) :
+    RecyclerView.Adapter<UpcomingMoviesAdapter.MyViewHolder>() {
 
-    lateinit var binding: ItemBinding
+    lateinit var binding: ItemUpcomingBinding
 
-    class MyViewHolder(var binding: ItemBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(movie: Movie) {
+    class MyViewHolder(var binding: ItemUpcomingBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(movie: UpcomingMovie) {
             binding.movie = movie
         }
     }
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        binding = ItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        binding = ItemUpcomingBinding.inflate(LayoutInflater.from(parent.context), parent, false)
 
         return MyViewHolder(binding)
     }
@@ -46,10 +44,10 @@ class MyAdapter(val context: Context, private val movieList: List<Movie>) :
         holder.bind(movie)
     }
 
-    private fun onItemClicked(movie: Movie,view: View) {
+    private fun onItemClicked(movie: UpcomingMovie,view: View) {
         val bundle = Bundle()
-        bundle.putParcelable("movie",movie)
-        view.findNavController().navigate(R.id.action_homeFragment_to_movieDetailsFragment,bundle)
+        bundle.putParcelable("upcoming",movie)
+        view.findNavController().navigate(R.id.action_homeFragment_to_upcomingMovieDetailsFragment,bundle)
 
     }
 

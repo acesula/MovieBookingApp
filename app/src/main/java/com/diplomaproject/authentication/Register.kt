@@ -3,6 +3,7 @@ package com.diplomaproject.authentication
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
@@ -14,20 +15,27 @@ import com.diplomaproject.MainActivity
 import com.diplomaproject.R
 import com.diplomaproject.authentication.data.User
 import com.diplomaproject.databinding.ActivityRegisterBinding
+import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.ktx.userProfileChangeRequest
+import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.StorageReference
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileInputStream
+import java.util.Date
 
 
 class Register : AppCompatActivity() {
     lateinit var binding: ActivityRegisterBinding
     lateinit var auth: FirebaseAuth
-    lateinit var database: FirebaseFirestore
+    var database: FirebaseFirestore = FirebaseFirestore.getInstance()
+    lateinit var storageReference: StorageReference
+    var collectionReference: CollectionReference = database.collection("Users")
     private val emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\$"
 
     private fun isValidEmail(email: String): Boolean {
@@ -100,6 +108,11 @@ class Register : AppCompatActivity() {
                         binding.progressBar.visibility = View.GONE
                         if (task.isSuccessful) {
                             val user = auth.currentUser
+//                            val profileUpdates = userProfileChangeRequest{
+//                                displayName = "$name $surname"
+//                                photoUri = Uri.parse("")
+//                            }
+//                            user!!.updateProfile(profileUpdates)
                             saveToDb(name, surname, email, user)
                             goToLoginPage()
                         } else {
@@ -118,15 +131,12 @@ class Register : AppCompatActivity() {
     }
 
     private fun saveToDb(name: String, surname: String, email: String, user: FirebaseUser?) {
-        val imageFile = File("drawable\\profile_picture.png")
-        val fileInputStream = FileInputStream(imageFile)
-        val imageBytes = ByteArray(imageFile.length().toInt())
-        fileInputStream.read(imageBytes)
-
-// Convert the image bytes to a base64-encoded string
-        val image = Base64.encodeToString(imageBytes, Base64.DEFAULT)
+        val image = "";
         val user1: User = User(name, surname, email, user?.uid.toString(),image)
         database = Firebase.firestore
-        database.collection("Users").add(user1)
+        val userDocRef = database.collection("Users").document(user?.uid.toString())
+        userDocRef.set(user1)
+
     }
 }
+

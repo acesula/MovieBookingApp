@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 R.id.order -> {
-                    navController.navigate(R.id.homeFragment)
+                    navController.navigate(R.id.orderFragment)
                     true
                 }
 

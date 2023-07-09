@@ -8,11 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import com.diplomaproject.databinding.FragmentMovieDetailsBinding
+import com.diplomaproject.databinding.FragmentUpcomingMovieDetailsBinding
 import com.diplomaproject.movies.model.Movie
+import com.diplomaproject.movies.model.UpcomingMovie
 
-class MovieDetailsFragment : Fragment() {
 
-    lateinit var binding: FragmentMovieDetailsBinding
+class UpcomingMovieDetailsFragment : Fragment() {
+    lateinit var binding: FragmentUpcomingMovieDetailsBinding
     lateinit var movieName: String
 
     override fun onCreateView(
@@ -20,20 +22,18 @@ class MovieDetailsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding =
-            DataBindingUtil.inflate(inflater, R.layout.fragment_movie_details, container, false)
-        val movie = arguments?.getParcelable<Movie>("movie")
+            DataBindingUtil.inflate(inflater, R.layout.fragment_upcoming_movie_details, container, false)
+        val movie = arguments?.getParcelable<UpcomingMovie>("upcoming")
         movie?.let {
             binding.movie = it
             movieName = it.title.toString()
         }
 
-        binding.bookTicket.setOnClickListener(){
-            val intent: Intent = Intent(requireContext(), SeatingActivity::class.java)
-            intent.putExtra("movie_name",movieName)
-            startActivity(intent)
-        }
+//        binding.bookTicket.setOnClickListener(){
+//            val intent: Intent = Intent(requireContext(), SeatingActivity::class.java)
+//            intent.putExtra("movie_name",movieName)
+//            startActivity(intent)
+//        }
         return binding.root
     }
-
-
 }
