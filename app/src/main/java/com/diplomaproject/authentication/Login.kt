@@ -7,7 +7,7 @@ import android.text.TextUtils
 import android.view.View
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
-import com.diplomaproject.MainActivity
+import com.diplomaproject.activities.MainActivity
 import com.diplomaproject.R
 import com.diplomaproject.databinding.ActivityLoginBinding
 import com.google.firebase.auth.FirebaseAuth

@@ -1,4 +1,4 @@
-package com.diplomaproject
+package com.diplomaproject.activities
 
 import android.app.Activity
 import android.content.Intent
@@ -6,16 +6,14 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.databinding.DataBindingUtil
+import com.diplomaproject.R
 import com.diplomaproject.databinding.ActivityProfileBinding
-import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.auth.ktx.userProfileChangeRequest
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
@@ -110,10 +108,11 @@ class ProfileActivity : AppCompatActivity() {
                 val userDocRef = database.collection("Users").document(user.uid)
 
                 val updatedData = hashMapOf<String, Any>(
+                    "uid" to user.uid.toString(),
                     "name" to name,
                     "surname" to surname,
                     "email" to email,
-                    "profile_picture" to imageUrl
+                    "profile_picture" to imageUri.toString()
                 )
                 userDocRef.set(updatedData)
 //                user!!.updateEmail(email)

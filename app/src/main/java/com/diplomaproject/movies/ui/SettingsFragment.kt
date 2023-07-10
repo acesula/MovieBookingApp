@@ -1,8 +1,6 @@
-package com.diplomaproject
+package com.diplomaproject.movies.ui
 
-import android.content.Context
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -10,9 +8,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.navigation.NavController
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.diplomaproject.activities.DeleteAccount
+import com.diplomaproject.activities.ProfileActivity
+import com.diplomaproject.R
 import com.diplomaproject.authentication.Login
 import com.diplomaproject.authentication.data.User
 import com.diplomaproject.databinding.FragmentSettingsBinding
@@ -44,6 +42,11 @@ class SettingsFragment : Fragment() {
 
         binding.editProfile.setOnClickListener(){
             val intent: Intent = Intent(requireContext(), ProfileActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.button2.setOnClickListener(){
+            val intent: Intent = Intent(requireContext(), DeleteAccount::class.java)
             startActivity(intent)
         }
 

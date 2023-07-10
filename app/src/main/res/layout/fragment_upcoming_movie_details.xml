@@ -157,6 +157,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
                     android:lineSpacingExtra="3dp"
+                    android:paddingRight="5dp"
                     android:text="@{movie.overview}"
                     android:textSize="12sp"/>
 

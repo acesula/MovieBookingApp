@@ -1,10 +1,11 @@
-package com.diplomaproject
+package com.diplomaproject.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.ui.NavigationUI.setupWithNavController
+import com.diplomaproject.R
 import com.diplomaproject.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {

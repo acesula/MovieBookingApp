@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.diplomaproject.HomeFragment"
+        android:name="com.diplomaproject.movies.ui.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home">
         <action
@@ -25,21 +25,21 @@
     </fragment>
     <fragment
         android:id="@+id/movieDetailsFragment"
-        android:name="com.diplomaproject.MovieDetailsFragment"
+        android:name="com.diplomaproject.movies.ui.MovieDetailsFragment"
         android:label="fragment_movie_details"
         tools:layout="@layout/fragment_movie_details" >
     </fragment>
     <fragment
         android:id="@+id/settingsFragment"
-        android:name="com.diplomaproject.SettingsFragment"
+        android:name="com.diplomaproject.movies.ui.SettingsFragment"
         android:label="fragment_settings"
         tools:layout="@layout/fragment_settings" />
     <fragment
         android:id="@+id/upcomingMovieDetailsFragment"
-        android:name="com.diplomaproject.UpcomingMovieDetailsFragment"
+        android:name="com.diplomaproject.movies.ui.UpcomingMovieDetailsFragment"
         android:label="UpcomingMovieDetailsFragment" />
     <fragment
         android:id="@+id/orderFragment"
-        android:name="com.diplomaproject.OrderFragment"
+        android:name="com.diplomaproject.movies.ui.OrderFragment"
         android:label="OrderFragment" />
 </navigation>

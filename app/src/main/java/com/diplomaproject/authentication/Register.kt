@@ -1,33 +1,23 @@
 package com.diplomaproject.authentication
 
 import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
-import android.util.Base64
 import android.view.View
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
-import com.diplomaproject.MainActivity
+import com.diplomaproject.activities.MainActivity
 import com.diplomaproject.R
 import com.diplomaproject.authentication.data.User
 import com.diplomaproject.databinding.ActivityRegisterBinding
-import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.auth.ktx.userProfileChangeRequest
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.StorageReference
-import java.io.ByteArrayOutputStream
-import java.io.File
-import java.io.FileInputStream
-import java.util.Date
 
 
 class Register : AppCompatActivity() {

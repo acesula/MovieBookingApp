@@ -13,7 +13,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".SettingsFragment">
+        tools:context=".movies.ui.SettingsFragment">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/topBackground"
@@ -65,7 +65,7 @@
                 android:layout_width="200dp"
                 android:layout_height="200dp"
                 android:layout_marginBottom="136dp"
-                android:src="@drawable/profile_picture"
+                android:src="@mipmap/profile_round"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.497"
@@ -136,6 +136,18 @@
                 android:layout_marginBottom="140dp"
                 android:background="@drawable/top_button_background"
                 android:text="Logout"
+                android:textSize="22sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <Button
+                android:id="@+id/button2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="72dp"
+                android:background="@drawable/top_button_background"
+                android:text="Delete account"
                 android:textSize="22sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

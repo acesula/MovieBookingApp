@@ -1,4 +1,4 @@
-package com.diplomaproject
+package com.diplomaproject.movies.ui
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,6 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import com.diplomaproject.R
+import com.diplomaproject.activities.SeatingActivity
 import com.diplomaproject.databinding.FragmentMovieDetailsBinding
 import com.diplomaproject.movies.model.Movie
 

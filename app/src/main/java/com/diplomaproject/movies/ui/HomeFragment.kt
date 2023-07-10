@@ -1,4 +1,4 @@
-package com.diplomaproject
+package com.diplomaproject.movies.ui
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.diplomaproject.R
 import com.diplomaproject.authentication.Login
 import com.diplomaproject.databinding.FragmentHomeBinding
 import com.diplomaproject.movies.adapter.MoviesOnTheatreAdapter

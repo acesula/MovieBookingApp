@@ -1,4 +1,4 @@
-package com.diplomaproject
+package com.diplomaproject.activities
 
 import android.app.DatePickerDialog
 import android.app.Dialog
@@ -14,6 +14,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.res.ResourcesCompat
 import androidx.databinding.DataBindingUtil
+import com.diplomaproject.R
 import com.diplomaproject.databinding.ActivitySeatingBinding
 import com.google.firebase.firestore.FirebaseFirestore
 import java.text.ParseException
