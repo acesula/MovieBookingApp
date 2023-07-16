@@ -8,9 +8,7 @@ import android.view.ViewGroup
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.diplomaproject.R
-import com.diplomaproject.databinding.ItemBinding
 import com.diplomaproject.databinding.ItemUpcomingBinding
-import com.diplomaproject.movies.model.Movie
 import com.diplomaproject.movies.model.UpcomingMovie
 
 class UpcomingMoviesAdapter(val context: Context, private val movieList: List<UpcomingMovie>) :

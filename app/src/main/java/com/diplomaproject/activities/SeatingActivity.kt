@@ -4,7 +4,6 @@ import android.app.DatePickerDialog
 import android.app.Dialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.LinearLayout
@@ -16,11 +15,14 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.databinding.DataBindingUtil
 import com.diplomaproject.R
 import com.diplomaproject.databinding.ActivitySeatingBinding
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
+import java.util.HashMap
+import java.util.UUID
 
 class SeatingActivity : AppCompatActivity() {
 
@@ -48,17 +50,22 @@ class SeatingActivity : AppCompatActivity() {
     private var col_text_view_array_5: Array<TextView?>? = null
     var quantityCount = 0
     var price = 10
-    var rbString = "10:00 am to 12:00 am"
+    var rbString = "9:00 am"
     private lateinit var dateString: String
     private lateinit var loadingDialog: Dialog
+    lateinit var movieName: String
+    lateinit var moviePoster: String
+    lateinit var room: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_seating)
-        val movieName = intent.getStringExtra("movie_name")
+        movieName = intent.getStringExtra("movie_name").toString()
+        moviePoster = intent.getStringExtra("movie_poster").toString()
+        room = intent.getStringExtra("room").toString()
         binding.title.text = movieName
-        binding.buyBtn.setOnClickListener(){
-            finish();
+        binding.buyBtn.setOnClickListener() {
+            bookTicket();
         }
         row_view_1 = findViewById(R.id.row_layout_A)
         row_view_2 = findViewById(R.id.row_layout_B)
@@ -204,11 +211,9 @@ class SeatingActivity : AppCompatActivity() {
                     quantityCount = 0
                     binding.txtQuality.text = "0"
                     binding.txtTotalPrice.text = "$0"
-//                    check(movieName!!, loadingDialog, dateString, rbString)
+                    check(movieName!!, loadingDialog, dateString, rbString)
                 }, year, month, day
             )
-
-            // set maximum date to be selected as today
             datePicker.datePicker.minDate = calendar.timeInMillis
             val string_date = "15-April-2024"
 
@@ -250,17 +255,18 @@ class SeatingActivity : AppCompatActivity() {
             check(movieName!!, loadingDialog, dateString, rb.text.toString())
 
         }
-        check(movieName!!, loadingDialog, dateString, "10:00 am to 12:00 am")
+        check(movieName!!, loadingDialog, dateString, "9:00 am")
     }
+
     private fun check(
-        moviename: String,
+        movieName: String,
         loadingDialog: Dialog,
         dateString: String,
         radioStr: String
     ) {
         loadingDialog.show()
         FirebaseFirestore.getInstance().collection("Tickets")
-            .document(moviename)
+            .document(movieName)
             .collection("Users")
             .get().addOnSuccessListener { queryDocumentSnapshots ->
                 if (!queryDocumentSnapshots.isEmpty) {
@@ -271,7 +277,6 @@ class SeatingActivity : AppCompatActivity() {
                         ) {
                             val resultSeating = documentList.get("seating_no").toString()
                             val lstValues: List<String> = resultSeating.split(",").map { it.trim() }
-                            Log.d("lst", lstValues.toString())
                             lstValues.forEach {
                                 when {
                                     "A" == it[0].toString() -> {
@@ -284,6 +289,7 @@ class SeatingActivity : AppCompatActivity() {
                                                 null
                                             )
                                     }
+
                                     "B" == it[0].toString() -> {
                                         val result: Int = it[1].toString().toInt()
                                         col_text_view_array_2!![result]!!.isEnabled = false
@@ -294,6 +300,7 @@ class SeatingActivity : AppCompatActivity() {
                                                 null
                                             )
                                     }
+
                                     "C" == it[0].toString() -> {
                                         val result: Int = it[1].toString().toInt()
                                         col_text_view_array_3!![result]!!.isEnabled = false
@@ -304,6 +311,7 @@ class SeatingActivity : AppCompatActivity() {
                                                 null
                                             )
                                     }
+
                                     "D" == it[0].toString() -> {
                                         val result: Int = it[1].toString().toInt()
                                         col_text_view_array_4!![result]!!.isEnabled = false
@@ -314,6 +322,7 @@ class SeatingActivity : AppCompatActivity() {
                                                 null
                                             )
                                     }
+
                                     "E" == it[0].toString() -> {
                                         val result: Int = it[1].toString().toInt()
                                         col_text_view_array_5!![result]!!.isEnabled = false
@@ -334,6 +343,75 @@ class SeatingActivity : AppCompatActivity() {
                     loadingDialog.dismiss()
                 } else {
                     loadingDialog.dismiss()
+                }
+            }
+    }
+
+    private fun textResult(
+        rowName: String,
+        col_text_view_array: Array<TextView?>
+    ): java.lang.StringBuilder {
+        val row_result = StringBuilder()
+        for (i in 0 until textViewCount) {
+            if (col_text_view_array[i]!!.isSelected) {
+                row_result.append("$rowName$i,")
+            }
+        }
+        return row_result
+    }
+
+    public fun bookTicket() {
+        val selectedId = binding.radioGroup.checkedRadioButtonId
+
+        val radioButton = findViewById<View>(selectedId) as RadioButton
+
+        val SeatingStr = StringBuilder()
+        SeatingStr.append(textResult("A", col_text_view_array_1!!))
+        SeatingStr.append(textResult("B", col_text_view_array_2!!))
+        SeatingStr.append(textResult("C", col_text_view_array_3!!))
+        SeatingStr.append(textResult("D", col_text_view_array_4!!))
+        SeatingStr.append(textResult("E", col_text_view_array_5!!))
+
+        SeatingStr.deleteCharAt(SeatingStr.length - 1)
+        Toast.makeText(
+            this,
+            SeatingStr.toString(), Toast.LENGTH_LONG
+        ).show()
+        loadingDialog.show()
+        val registerHM: HashMap<String, Any> = HashMap()
+        val id = UUID.randomUUID().toString()
+        val user_id = FirebaseAuth.getInstance().currentUser!!.uid
+        registerHM["movie_name"] = movieName!!
+        registerHM["banner_image_url"] = moviePoster!!
+        registerHM["user_id"] = user_id
+        registerHM["id"] = id
+        registerHM["seating_no"] = SeatingStr.toString()
+        registerHM["date"] = binding.pickDateBtn.text
+        registerHM["time"] = radioButton.text
+        registerHM["room"] = room!!
+        val totalPrice = price * quantityCount
+        registerHM["total_price"] = totalPrice
+        registerHM["price"] = price
+        registerHM["quantity"] = quantityCount
+        FirebaseFirestore.getInstance().collection("Tickets").document(movieName)
+            .collection("Users").document(id).set(registerHM)
+            .addOnCompleteListener { task1 ->
+                if (task1.isSuccessful) {
+                    FirebaseFirestore.getInstance().collection("User_Tickets")
+                        .document(FirebaseAuth.getInstance().currentUser!!.uid)
+                        .collection("Users").document(id).set(registerHM)
+                        .addOnCompleteListener { task2 ->
+                            if (task2.isSuccessful) {
+                                Toast.makeText(
+                                    this,
+                                    "Ticket Booked Successfully",
+                                    Toast.LENGTH_LONG
+                                )
+                                    .show()
+                                loadingDialog.dismiss()
+                                finish()
+                            }
+                        }
                 }
             }
     }

@@ -13,14 +13,4 @@ data class User(
 
 ) {
 
-    object DataBindingAdapter {
-        @BindingAdapter("imageUrl")
-        @JvmStatic
-        fun setImageByRes(imageView: ImageView, imageUrl: String) {
-            Glide.with(imageView.context)
-                .load(imageUrl)
-                .into(imageView)
-
-        }
-    }
 }

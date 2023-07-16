@@ -46,7 +46,6 @@ class MoviesOnTheatreAdapter(val context: Context, private val movieList: List<M
         val bundle = Bundle()
         bundle.putParcelable("movie",movie)
         view.findNavController().navigate(R.id.action_homeFragment_to_movieDetailsFragment,bundle)
-
     }
 
 

@@ -28,11 +28,6 @@ class UpcomingMovieDetailsFragment : Fragment() {
             movieName = it.title.toString()
         }
 
-//        binding.bookTicket.setOnClickListener(){
-//            val intent: Intent = Intent(requireContext(), SeatingActivity::class.java)
-//            intent.putExtra("movie_name",movieName)
-//            startActivity(intent)
-//        }
         return binding.root
     }
 }

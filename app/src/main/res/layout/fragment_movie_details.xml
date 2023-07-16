@@ -161,6 +161,14 @@
                     android:text="@{movie.overview}"
                     android:textSize="12sp"/>
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@{`Room: `+ movie.room}"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="20dp"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"/>
                 <Button
                     android:id="@+id/bookTicket"
                     android:layout_width="wrap_content"

@@ -26,17 +26,6 @@ data class UpcomingMovie (
     ) {
     }
 
-    object DataBindingAdapter{
-        @BindingAdapter("imageUrl")
-        @JvmStatic
-        fun setImageByRes(imageView: ImageView, imageUrl: String){
-            Glide.with(imageView.context)
-                .load(imageUrl)
-                .into(imageView)
-
-        }
-    }
-
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(backdrop_path)
         parcel.writeString(original_language)

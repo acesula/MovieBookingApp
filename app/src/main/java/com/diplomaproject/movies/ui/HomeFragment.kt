@@ -65,7 +65,8 @@ class HomeFragment : Fragment() {
                             postSnapshot.child("poster_path").value.toString(),
                             postSnapshot.child("release_date").value.toString(),
                             postSnapshot.child("title").value.toString(),
-                            postSnapshot.child("vote_average").value.toString()
+                            postSnapshot.child("vote_average").value.toString(),
+                            postSnapshot.child("room").value.toString()
                         )
                     )
                 }

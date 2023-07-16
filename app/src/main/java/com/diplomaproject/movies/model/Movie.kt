@@ -13,9 +13,11 @@ data class Movie(
     val poster_path: String?,
     val release_date: String?,
     val title: String?,
-    val vote_average: String?
+    val vote_average: String?,
+    val room: String?
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
+        parcel.readString(),
         parcel.readString(),
         parcel.readString(),
         parcel.readString(),
@@ -25,18 +27,6 @@ data class Movie(
         parcel.readString()
     ) {
     }
-
-    object DataBindingAdapter{
-        @BindingAdapter("imageUrl")
-        @JvmStatic
-        fun setImageByRes(imageView: ImageView, imageUrl: String){
-            Glide.with(imageView.context)
-                .load(imageUrl)
-                .into(imageView)
-
-        }
-    }
-
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(backdrop_path)
         parcel.writeString(original_language)
@@ -45,6 +35,7 @@ data class Movie(
         parcel.writeString(release_date)
         parcel.writeString(title)
         parcel.writeString(vote_average)
+        parcel.writeString(room)
     }
 
     override fun describeContents(): Int {

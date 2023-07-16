@@ -8,6 +8,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.diplomaproject.activities.DeleteAccount
 import com.diplomaproject.activities.ProfileActivity
 import com.diplomaproject.R
@@ -25,7 +27,6 @@ class SettingsFragment : Fragment() {
     lateinit var binding: FragmentSettingsBinding
     private lateinit var firestore: FirebaseFirestore
     private lateinit var currentUser: FirebaseUser
-    private var cachedUserData: User? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,7 +38,6 @@ class SettingsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_settings, container, false)
 
         binding.editProfile.setOnClickListener(){
@@ -59,32 +59,7 @@ class SettingsFragment : Fragment() {
     }
 
     private fun fetchUserData() {
-        // Check if the user data is already cached
-        if (cachedUserData != null) {
-            binding.user = cachedUserData
-            return
-        }
-
-//        showLoadingState()
-//
-//        val userAuth = Firebase.auth.currentUser
-//        val name = userAuth?.displayName
-//        val email = userAuth?.email
-//        val photoUrl = userAuth?.photoUrl.toString()
-//
-//
-//        if(photoUrl != null){
-//            photoUrl?.let {
-//                Glide.with(this)
-//                    .load(it)
-//                    .diskCacheStrategy(DiskCacheStrategy.ALL)
-//                    .into(binding.profilePicture)
-//            }
-//        }
-//        val user: User = User(name,"",email,userAuth?.uid.toString(),photoUrl.toString())
-//        binding.user = user
-//
-//        hideLoadingState()
+        showLoadingState()
         firestore.collection("Users")
             .whereEqualTo("uid", currentUser.uid)
             .get()
@@ -92,18 +67,15 @@ class SettingsFragment : Fragment() {
                 if (!querySnapshot.isEmpty) {
                     val userDocument = querySnapshot.documents[0]
                     val user = userDocument.toObject(User::class.java)
-                    cachedUserData = user
                     binding.user = user
-//                    if(user?.profile_picture != null) {
-//                        user.profile_picture.let {
-//                            Glide.with(this)
-//                                .load(it)
-//                                .diskCacheStrategy(DiskCacheStrategy.ALL)
-//                                .into(binding.appCompatImageView)
-//                        }
-//                    }
-                } else {
-                    Log.d("SettingsFragment", "No matching documents found")
+                    if(user?.profile_picture != "") {
+                        user?.profile_picture.let {
+                            Glide.with(this)
+                                .load(it)
+                                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                                .into(binding.appCompatImageView)
+                        }
+                    }
                 }
                 hideLoadingState()
             }
@@ -118,12 +90,10 @@ class SettingsFragment : Fragment() {
         fetchUserData()
     }
     private fun showLoadingState() {
-        // Show a loading state indicator (e.g., progress bar)
         binding.progressBar.visibility = View.VISIBLE
     }
 
     private fun hideLoadingState() {
-        // Hide the loading state indicator (e.g., progress bar)
         binding.progressBar.visibility = View.GONE
     }
 
